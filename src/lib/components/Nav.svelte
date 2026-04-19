@@ -23,7 +23,14 @@
 
 	// Update activeId with current section
 	$effect(() => {
+		const visible = new Set<string>();
 		const observers: IntersectionObserver[] = [];
+
+		function updateActiveId() {
+			const atBottom =
+				window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1;
+			activeId = atBottom ? 'contact' : (sections.find((s) => visible.has(s.id))?.id ?? '');
+		}
 
 		for (const section of sections) {
 			const element = document.getElementById(section.id);
@@ -31,8 +38,11 @@
 			const observer = new IntersectionObserver(
 				([entry]) => {
 					if (entry.isIntersecting) {
-						activeId = section.id;
+						visible.add(section.id);
+					} else {
+						visible.delete(section.id);
 					}
+					updateActiveId();
 				},
 				{ rootMargin: '-20% 0px -60% 0px' }
 			);
@@ -40,10 +50,15 @@
 			observers.push(observer);
 		}
 
+		const onScroll = () => updateActiveId();
+		window.addEventListener('scroll', onScroll, { passive: true });
+
 		return () => {
 			for (const observer of observers) {
 				observer.disconnect();
 			}
+			window.removeEventListener('scroll', onScroll);
+			visible.clear();
 		};
 	});
 
