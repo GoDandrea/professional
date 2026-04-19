@@ -105,12 +105,12 @@
 		transition:
 			background-color 0.3s ease,
 			box-shadow 0.3s ease;
-	}
 
-	.nav.scrolled {
-		background-color: oklch(0.9743 0.0102 81.8 / 0.9);
-		backdrop-filter: blur(8px);
-		box-shadow: 0 1px 0 oklch(0.8407 0.0239 75.83);
+		&.scrolled {
+			background-color: oklch(0.9743 0.0102 81.8 / 0.9);
+			backdrop-filter: blur(8px);
+			box-shadow: 0 1px 0 oklch(0.8407 0.0239 75.83);
+		}
 	}
 
 	.nav-inner {
@@ -138,12 +138,12 @@
 		transition:
 			opacity 0.3s ease,
 			transform 0.3s ease;
-	}
 
-	.nav-logo.visible {
-		opacity: 1;
-		transform: translateY(0);
-		pointer-events: auto;
+		&.visible {
+			opacity: 1;
+			transform: translateY(0);
+			pointer-events: auto;
+		}
 	}
 
 	.nav-logo-go {
@@ -161,6 +161,10 @@
 		display: flex;
 		list-style: none;
 		gap: 1.5rem;
+
+		@media (max-width: 480px) {
+			gap: 1rem;
+		}
 	}
 
 	.nav-link {
@@ -174,35 +178,29 @@
 		padding: 0;
 		position: relative;
 		transition: color 0.2s ease;
-	}
 
-	.nav-link:hover,
-	.nav-link.active {
-		color: var(--color-accent-strong);
-	}
-
-	.nav-link::after {
-		content: '';
-		position: absolute;
-		bottom: -2px;
-		left: 0;
-		width: 0;
-		height: 1.5px;
-		background-color: var(--color-accent-strong);
-		transition: width 0.3s ease;
-	}
-
-	.nav-link:hover::after,
-	.nav-link.active::after {
-		width: 100%;
-	}
-
-	@media (max-width: 480px) {
-		.nav-links {
-			gap: 1rem;
+		&:hover,
+		&.active {
+			color: var(--color-accent-strong);
 		}
 
-		.nav-link {
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: -2px;
+			left: 0;
+			width: 0;
+			height: 1.5px;
+			background-color: var(--color-accent-strong);
+			transition: width 0.3s ease;
+		}
+
+		&:hover::after,
+		&.active::after {
+			width: 100%;
+		}
+
+		@media (max-width: 480px) {
 			font-size: 0.75rem;
 		}
 	}

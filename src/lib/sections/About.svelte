@@ -22,6 +22,12 @@
 	.section {
 		padding: var(--section-spacing) var(--content-padding);
 		border-top: 1px solid var(--color-border-subtle);
+
+		&:global(.visible) .section-heading,
+		&:global(.visible) .section-body {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 
 	.section-inner {
@@ -36,6 +42,12 @@
 		transition:
 			opacity 0.5s ease-out,
 			transform 0.5s ease-out;
+
+		@media (prefers-reduced-motion: reduce) {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
 	}
 
 	.section-body {
@@ -44,12 +56,12 @@
 		transition:
 			opacity 0.5s ease-out 0.1s,
 			transform 0.5s ease-out 0.1s;
-	}
 
-	.section:global(.visible) .section-heading,
-	.section:global(.visible) .section-body {
-		opacity: 1;
-		transform: translateY(0);
+		@media (prefers-reduced-motion: reduce) {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
 	}
 
 	.section-body :global(p + p) {
@@ -58,19 +70,11 @@
 
 	.section-body :global(.intro) {
 		font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+
 		& span {
 			text-decoration: underline;
 			text-decoration-thickness: 1px;
 			text-decoration-color: var(--color-border);
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.section-heading,
-		.section-body {
-			opacity: 1;
-			transform: none;
-			transition: none;
 		}
 	}
 </style>

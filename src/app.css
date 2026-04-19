@@ -55,12 +55,12 @@ h3 {
 a {
 	color: var(--color-accent-strong);
 	text-decoration: none;
-}
 
-a:focus-visible {
-	outline: 2px solid var(--color-accent-strong);
-	outline-offset: 2px;
-	border-radius: 2px;
+	&:focus-visible {
+		outline: 2px solid var(--color-accent-strong);
+		outline-offset: 2px;
+		border-radius: 2px;
+	}
 }
 
 img {
@@ -78,10 +78,10 @@ img {
 	font-size: 0.875rem;
 	border-radius: 0 0 4px 4px;
 	z-index: 1000;
-}
 
-.skip-link:focus {
-	top: 0;
+	&:focus {
+		top: 0;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {

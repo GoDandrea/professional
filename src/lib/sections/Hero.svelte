@@ -23,6 +23,15 @@
 		min-height: 100dvh;
 		padding: var(--content-padding);
 		padding-top: 5rem;
+
+		&:global(.visible) .hero-content {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		@media (min-width: 481px) {
+			padding-left: clamp(2.5rem, 8vw, 5rem);
+		}
 	}
 
 	.hero-content {
@@ -31,11 +40,12 @@
 		transition:
 			opacity 0.6s ease-out,
 			transform 0.6s ease-out;
-	}
 
-	.hero:global(.visible) .hero-content {
-		opacity: 1;
-		transform: translateY(0);
+		@media (prefers-reduced-motion: reduce) {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
 	}
 
 	.hero-brand {
@@ -56,6 +66,11 @@
 		margin-left: clamp(2rem, 6vw, 7rem);
 		position: relative;
 		bottom: clamp(0.75rem, 8vw, 9.5rem);
+
+		@media (max-width: 480px) {
+			margin-left: clamp(1rem, 6vw, 5rem);
+			bottom: clamp(0.75rem, 8vw, 6.5rem);
+		}
 	}
 
 	.hero-role-wrapper {
@@ -63,10 +78,21 @@
 		display: flex;
 		align-items: center;
 		gap: 1rem;
+
+		@media (min-width: 1024px) {
+			margin-left: clamp(2rem, 6vw, 7rem);
+		}
 	}
 
 	.hero-role-line {
 		display: none;
+
+		@media (min-width: 1024px) {
+			display: block;
+			flex: 1;
+			height: 1.5px;
+			background: var(--color-accent);
+		}
 	}
 
 	.hero-role {
@@ -77,43 +103,9 @@
 		color: var(--color-accent-strong);
 		text-align: right;
 		margin-left: auto;
-	}
 
-	@media (min-width: 481px) {
-		.hero {
-			padding-left: clamp(2.5rem, 8vw, 5rem);
-		}
-	}
-
-	@media (min-width: 1024px) {
-		.hero-role-wrapper {
-			margin-left: clamp(2rem, 6vw, 7rem);
-		}
-
-		.hero-role-line {
-			display: block;
-			flex: 1;
-			height: 1.5px;
-			background: var(--color-accent);
-		}
-
-		.hero-role {
+		@media (min-width: 1024px) {
 			white-space: nowrap;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.hero-dandrea {
-			margin-left: clamp(1rem, 6vw, 5rem);
-			bottom: clamp(0.75rem, 8vw, 6.5rem);
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.hero-content {
-			opacity: 1;
-			transform: none;
-			transition: none;
 		}
 	}
 </style>

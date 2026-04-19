@@ -25,6 +25,12 @@
 	.section {
 		padding: var(--section-spacing) var(--content-padding);
 		border-top: 1px solid var(--color-border-subtle);
+
+		&:global(.visible) .section-heading,
+		&:global(.visible) .section-body {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 
 	.section-inner {
@@ -39,6 +45,12 @@
 		transition:
 			opacity 0.5s ease-out,
 			transform 0.5s ease-out;
+
+		@media (prefers-reduced-motion: reduce) {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
 	}
 
 	.section-body {
@@ -47,12 +59,12 @@
 		transition:
 			opacity 0.5s ease-out 0.1s,
 			transform 0.5s ease-out 0.1s;
-	}
 
-	.section:global(.visible) .section-heading,
-	.section:global(.visible) .section-body {
-		opacity: 1;
-		transform: translateY(0);
+		@media (prefers-reduced-motion: reduce) {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
 	}
 
 	.section-body :global(p + p) {
@@ -62,14 +74,5 @@
 	.section-body :global(strong) {
 		color: var(--color-text);
 		font-weight: 600;
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.section-heading,
-		.section-body {
-			opacity: 1;
-			transform: none;
-			transition: none;
-		}
 	}
 </style>
