@@ -1,0 +1,91 @@
+:root {
+	--color-bg: oklch(0.9743 0.0102 81.8);
+	--color-bg-card: oklch(0.9945 0.0057 84.57);
+	--color-text: oklch(0.2732 0.014 67.18);
+	--color-text-body: oklch(0.4386 0.0185 60.97);
+	--color-text-muted: oklch(0.6004 0.0231 67.36);
+	--color-border: oklch(0.8407 0.0239 75.83);
+	--color-border-subtle: oklch(0.9075 0.0189 75.31);
+	--color-accent: oklch(0.78 0.06 66.89);
+	--color-accent-strong: oklch(0.5444 0.107 66.89);
+	--color-tag-bg: oklch(0.9285 0.0239 79.74);
+	--color-tag-text: oklch(0.5072 0.0574 71.74);
+
+	--font-heading: 'EB Garamond', Georgia, 'Times New Roman', serif;
+	--font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+	--max-width-text: 640px;
+	--max-width-cards: 800px;
+
+	--section-spacing: clamp(4rem, 10vh, 8rem);
+	--content-padding: clamp(1.25rem, 5vw, 2rem);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: 4rem;
+}
+
+body {
+	font-family: var(--font-body);
+	font-size: 1rem;
+	line-height: 1.7;
+	color: var(--color-text-body);
+	background-color: var(--color-bg);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--font-heading);
+	color: var(--color-text);
+	line-height: 1.2;
+}
+
+a {
+	color: var(--color-accent-strong);
+	text-decoration: none;
+}
+
+a:focus-visible {
+	outline: 2px solid var(--color-accent-strong);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+img {
+	max-width: 100%;
+	display: block;
+}
+
+.skip-link {
+	position: absolute;
+	top: -100%;
+	left: 1rem;
+	padding: 0.5rem 1rem;
+	background: var(--color-text);
+	color: var(--color-bg);
+	font-size: 0.875rem;
+	border-radius: 0 0 4px 4px;
+	z-index: 1000;
+}
+
+.skip-link:focus {
+	top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
