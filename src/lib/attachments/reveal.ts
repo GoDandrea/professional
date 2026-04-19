@@ -1,3 +1,4 @@
+// Adds `visible` class once when element enters the viewport, then disconnects.
 import type { Attachment } from 'svelte/attachments';
 
 export const reveal: Attachment = (element) => {

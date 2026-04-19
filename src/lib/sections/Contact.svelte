@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { reveal } from '$lib/attachments/reveal';
+	import { activeId } from '$lib/active-section';
 
 	interface ContactLink {
 		label: string;
@@ -34,12 +35,33 @@
 			</ul>
 		</div>
 	</div>
+	<div class="section-icon" class:visible={$activeId === 'contact'} aria-hidden="true">
+		<!-- Send icon courtesy of Lucide -->
+		<svg
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			<path
+				d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"
+			/>
+			<path d="m21.854 2.147-10.94 10.939" />
+		</svg>
+	</div>
 </section>
 
 <style>
 	.section {
 		padding: var(--section-spacing) var(--content-padding);
 		border-top: 1px solid var(--color-border-subtle);
+
+		@media (min-width: 480px) {
+			display: flex;
+			align-items: center;
+			gap: 4rem;
+		}
 
 		&:global(.visible) .section-heading,
 		&:global(.visible) .section-body {
@@ -50,6 +72,52 @@
 
 	.section-inner {
 		max-width: var(--max-width-text);
+	}
+
+	.section-icon {
+		display: none;
+		opacity: 0;
+		overflow: hidden;
+		color: var(--color-border);
+		transition: opacity 0.5s ease;
+
+		@media (min-width: 480px) {
+			display: block;
+			position: absolute;
+			right: 5%;
+		}
+
+		@media (min-width: 1024px) {
+			color: var(--color-border);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+			right: 15%;
+		}
+
+		& :global(svg) {
+			width: 140px;
+			height: 140px;
+			stroke-width: 1.5;
+			overflow: clip;
+
+			@media (min-width: 480px) {
+				padding-left: 1rem;
+				width: 270px;
+				height: 270px;
+				stroke-width: 1;
+				margin-right: 20%;
+			}
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			transition: none;
+		}
+
+		&.visible {
+			opacity: 0.3;
+		}
 	}
 
 	.section-heading {

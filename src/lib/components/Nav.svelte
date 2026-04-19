@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { activeId } from '$lib/active-section';
+
 	const sections = [
 		{ id: 'about', label: 'About' },
 		{ id: 'skills', label: 'Skills' },
@@ -7,7 +9,6 @@
 	];
 
 	let scrolled = $state(false);
-	let activeId = $state('');
 
 	// Update scrolled state
 	$effect(() => {
@@ -29,7 +30,7 @@
 		function updateActiveId() {
 			const atBottom =
 				window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1;
-			activeId = atBottom ? 'contact' : (sections.find((s) => visible.has(s.id))?.id ?? '');
+			activeId.set(atBottom ? 'contact' : (sections.find((s) => visible.has(s.id))?.id ?? ''));
 		}
 
 		for (const section of sections) {
@@ -83,9 +84,9 @@
 				<li>
 					<button
 						class="nav-link"
-						class:active={activeId === section.id}
+						class:active={$activeId === section.id}
 						onclick={() => scrollTo(section.id)}
-						aria-current={activeId === section.id ? 'true' : undefined}
+						aria-current={$activeId === section.id ? 'true' : undefined}
 					>
 						{section.label}
 					</button>

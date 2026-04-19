@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { projects } from '$lib/data/projects';
 	import { reveal } from '$lib/attachments/reveal';
+	import { activeId } from '$lib/active-section';
 </script>
 
 <section id="projects" class="section" {@attach reveal}>
@@ -21,12 +22,35 @@
 			{/each}
 		</ul>
 	</div>
+	<div class="section-icon" class:visible={$activeId === 'projects'} aria-hidden="true">
+		<svg
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			<path d="m10.586 5.414-5.172 5.172" />
+			<path d="m18.586 13.414-5.172 5.172" />
+			<path d="M6 12h12" />
+			<circle cx="12" cy="20" r="2" />
+			<circle cx="12" cy="4" r="2" />
+			<circle cx="20" cy="12" r="2" />
+			<circle cx="4" cy="12" r="2" />
+		</svg>
+	</div>
 </section>
 
 <style>
 	.section {
 		padding: var(--section-spacing) var(--content-padding);
 		border-top: 1px solid var(--color-border-subtle);
+
+		@media (min-width: 480px) {
+			display: flex;
+			align-items: center;
+			gap: 2rem;
+		}
 
 		&:global(.visible) .section-heading {
 			opacity: 1;
@@ -44,15 +68,53 @@
 			&:nth-child(2) {
 				transition-delay: 0.15s;
 			}
-
-			&:nth-child(3) {
-				transition-delay: 0.3s;
-			}
 		}
 	}
 
 	.section-inner {
-		max-width: var(--max-width-cards);
+		max-width: min(var(--max-width-cards), 45vw);
+	}
+
+	.section-icon {
+		display: none;
+		opacity: 0;
+		overflow: hidden;
+		color: color-mix(in oklch, var(--color-border) 40%, var(--color-bg));
+		transition: opacity 0.5s ease;
+
+		@media (min-width: 1024px) {
+			display: block;
+			position: absolute;
+			right: 5%;
+			color: var(--color-border);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+		}
+
+		& :global(svg) {
+			width: 140px;
+			height: 140px;
+			stroke-width: 1.5;
+			overflow: clip;
+
+			@media (min-width: 480px) {
+				padding-left: 1rem;
+				width: 420px;
+				height: 420px;
+				stroke-width: 1;
+				margin-right: 20%;
+			}
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			transition: none;
+		}
+
+		&.visible {
+			opacity: 0.3;
+		}
 	}
 
 	.section-heading {
