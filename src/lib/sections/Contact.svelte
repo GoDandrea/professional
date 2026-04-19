@@ -25,7 +25,7 @@
 			<ul class="contact-links">
 				{#each links as link (link.href)}
 					<li>
-						<a href={link.href} data-sveltekit-reload class="contact-link">
+						<a href={link.href} rel="external" class="contact-link">
 							<span class="contact-icon">{link.icon}</span>
 							<span class="contact-label">{link.label}</span>
 						</a>
@@ -93,19 +93,21 @@
 		transition: color 0.2s ease;
 	}
 
-	.contact-link::after {
-		content: '';
-		position: absolute;
-		bottom: -2px;
-		left: 0;
-		width: 0;
-		height: 1.5px;
-		background-color: var(--color-accent-strong);
-		transition: width 0.3s ease;
-	}
+	.contact-label {
+		display: inline-flex;
+		flex-direction: column;
 
-	.contact-link:hover::after {
-		width: 100%;
+		&::after {
+			content: '';
+			width: 0;
+			height: 1px;
+			background-color: var(--color-accent-strong);
+			transition: width 0.3s ease;
+		}
+
+		&:hover::after {
+			width: 100%;
+		}
 	}
 
 	.contact-icon {
