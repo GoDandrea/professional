@@ -1,24 +1,8 @@
 <script lang="ts">
-	let visible = $state(false);
-
-	$effect(() => {
-		const observer = new IntersectionObserver(
-			([entry]) => {
-				if (entry.isIntersecting) {
-					visible = true;
-					observer.disconnect();
-				}
-			},
-			{ threshold: 0.1 }
-		);
-
-		observer.observe(document.getElementById('hero')!);
-
-		return () => observer.disconnect();
-	});
+	import { reveal } from '$lib/attachments/reveal';
 </script>
 
-<section id="hero" class="hero" class:visible>
+<section id="hero" class="hero" {@attach reveal}>
 	<div class="hero-content">
 		<h1 class="hero-brand">
 			<span class="hero-go">go</span>
@@ -49,7 +33,7 @@
 			transform 0.6s ease-out;
 	}
 
-	.hero.visible .hero-content {
+	.hero:global(.visible) .hero-content {
 		opacity: 1;
 		transform: translateY(0);
 	}

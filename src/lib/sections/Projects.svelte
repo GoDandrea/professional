@@ -1,31 +1,14 @@
 <script lang="ts">
 	import { projects } from '$lib/data/projects';
-
-	let visible = $state(false);
-
-	$effect(() => {
-		const observer = new IntersectionObserver(
-			([entry]) => {
-				if (entry.isIntersecting) {
-					visible = true;
-					observer.disconnect();
-				}
-			},
-			{ threshold: 0.1 }
-		);
-
-		observer.observe(document.getElementById('projects')!);
-
-		return () => observer.disconnect();
-	});
+	import { reveal } from '$lib/attachments/reveal';
 </script>
 
-<section id="projects" class="section" class:visible>
+<section id="projects" class="section" {@attach reveal}>
 	<div class="section-inner">
 		<h2 class="section-heading">Projects</h2>
 		<ul class="projects-list">
-			{#each projects as project, i (project.title)}
-				<li class="project-card" style:transition-delay={visible ? `${i * 0.15}s` : '0s'}>
+			{#each projects as project (project.title)}
+				<li class="project-card">
 					<h3 class="project-title">{project.title}</h3>
 					<p class="project-context">{project.context}</p>
 					<p class="project-description">{project.description}</p>
@@ -85,14 +68,26 @@
 		box-shadow: 0 4px 12px oklch(0.2732 0.014 67.18 / 0.08);
 	}
 
-	.section.visible .section-heading {
+	.section:global(.visible) .section-heading {
 		opacity: 1;
 		transform: translateY(0);
 	}
 
-	.section.visible .project-card {
+	.section:global(.visible) .project-card {
 		opacity: 1;
 		transform: translateY(0);
+	}
+
+	.section:global(.visible) .project-card:nth-child(1) {
+		transition-delay: 0s;
+	}
+
+	.section:global(.visible) .project-card:nth-child(2) {
+		transition-delay: 0.15s;
+	}
+
+	.section:global(.visible) .project-card:nth-child(3) {
+		transition-delay: 0.3s;
 	}
 
 	.project-title {

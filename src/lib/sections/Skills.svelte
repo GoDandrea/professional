@@ -1,24 +1,8 @@
 <script lang="ts">
-	let visible = $state(false);
-
-	$effect(() => {
-		const observer = new IntersectionObserver(
-			([entry]) => {
-				if (entry.isIntersecting) {
-					visible = true;
-					observer.disconnect();
-				}
-			},
-			{ threshold: 0.1 }
-		);
-
-		observer.observe(document.getElementById('skills')!);
-
-		return () => observer.disconnect();
-	});
+	import { reveal } from '$lib/attachments/reveal';
 </script>
 
-<section id="skills" class="section" class:visible>
+<section id="skills" class="section" {@attach reveal}>
 	<div class="section-inner">
 		<h2 class="section-heading">Skills</h2>
 		<div class="section-body">
@@ -65,8 +49,8 @@
 			transform 0.5s ease-out 0.1s;
 	}
 
-	.section.visible .section-heading,
-	.section.visible .section-body {
+	.section:global(.visible) .section-heading,
+	.section:global(.visible) .section-body {
 		opacity: 1;
 		transform: translateY(0);
 	}
