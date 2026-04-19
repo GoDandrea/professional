@@ -4,6 +4,8 @@
 	import Nav from '$lib/components/Nav.svelte';
 
 	let { children } = $props();
+
+	export const prerender = true;
 </script>
 
 <svelte:head>
